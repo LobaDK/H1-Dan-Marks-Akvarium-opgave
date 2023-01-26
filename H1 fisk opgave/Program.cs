@@ -6,8 +6,6 @@ namespace H1_fisk_opgave
     {
         static List<Fisk> fishList = new List<Fisk>();
         static List<Aquarium> aquariaList = new List<Aquarium>();
-        static Fisk fish = new Fisk();
-        static Aquarium aquarium = new Aquarium();
         static void Main(string[] args)
         {
             // Menu:
@@ -69,50 +67,64 @@ namespace H1_fisk_opgave
 
         private static void RemoveAquarium()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("\nDelete");
+            ListAquarium();
+            if (aquariaList.Count > 0)
+            {
+                aquariaList.RemoveAt(SelectIndex(aquariaList.Count));
+                Console.WriteLine("Task deleted!");
+            }
         }
 
         private static void RemoveFish()
         {
 
-            Console.WriteLine("Delete");
+            Console.WriteLine("\nDelete");
             ListFish();
-            Console.Write("Enter task number to delete: ");
-            fishList.RemoveAt(SelectIndex());
+            if (fishList.Count > 0)
+            {
+            fishList.RemoveAt(SelectIndex(fishList.Count));
             Console.WriteLine("Task deleted!");
+            }
 
         }
 
         private static void ViewAquarium()
         {
             ListAquarium();
-            int input = SelectIndex();
-            Console.WriteLine($"Aquarium {aquariaList[input].Name} \nSize: {aquariaList[input].Size} \nCapacity: {aquariaList[input].Capcity}");
+            if (aquariaList.Count > 0) 
+            { 
+                int input = SelectIndex(aquariaList.Count);
+                Console.WriteLine($"Aquarium {aquariaList[input].Name} \nSize: {aquariaList[input].Size} \nCapacity: {aquariaList[input].Capcity}");
+            }
         }
 
         private static void ListAquarium()
         {
             if (aquariaList.Count > 0)
             {
-                Console.WriteLine("\n");
+                Console.Write("\n");
                 for (int i = 0; i < aquariaList.Count; i++)
                 {
                     Console.WriteLine($"[{i}] {aquariaList[i].Name}");
                 }
             }
-            else Console.WriteLine("No aquarias available");
+            else Console.WriteLine("\nNo aquarias available");
         }
 
         private static void ViewFish()
         {
 
             ListFish();
-            int input = SelectIndex();
-            Console.WriteLine($"Fish Name: {fishList[input].Name} \nAquarium: {fishList[input].Aquarium} \nFish Size: {fishList[input].Size} \nEats Meat: {fishList[input].IsCarnivore} \nRequires Salt Water: {fishList[input].RequiresSaltWater}");
+            if (fishList.Count > 0)
+            {
+                int input = SelectIndex(fishList.Count);
+                Console.WriteLine($"Fish Name: {fishList[input].Name} \nAquarium: {fishList[input].Aquarium} \nFish Size: {fishList[input].Size} \nEats Meat: {fishList[input].IsCarnivore} \nRequires Salt Water: {fishList[input].RequiresSaltWater}");
+            }
 
         }
 
-        private static int SelectIndex()
+        private static int SelectIndex(int maxIndex)
         {
             int index;
 
@@ -120,7 +132,7 @@ namespace H1_fisk_opgave
             {
                 Console.WriteLine("Choose # from list:");
 
-            } while (!int.TryParse(Console.ReadLine(), out index) || index >= fishList.Count + 1);
+            } while (!int.TryParse(Console.ReadLine(), out index) || index >= maxIndex);
 
             return index;
         }
@@ -129,26 +141,27 @@ namespace H1_fisk_opgave
         {
             if (fishList.Count > 0)
             {
-                Console.WriteLine("\n");
+                Console.Write("\n");
                 for (int i = 0; i < fishList.Count; i++)
                 {
                     Console.WriteLine($"[{i}] {fishList[i].Name}");
                 }
             }
-            else Console.WriteLine("No fish available");
+            else Console.WriteLine("\nNo fish available");
         }
 
         private static void AddAquarium()
         {
-            Console.WriteLine("Tank name: ");
+            Aquarium aquarium = new Aquarium();
+            Console.Write("\nTank name: ");
             aquarium.Name = Console.ReadLine();
-            Console.WriteLine("Tank size: ");
+            Console.Write("\nTank size: ");
             aquarium.Size = Console.ReadLine();
 
             int capacity;
             do
             {
-                Console.WriteLine("Tank capacity: ");
+                Console.Write("\nTank capacity: ");
             } while (!int.TryParse(Console.ReadLine(), out capacity) || capacity < 0);
             aquarium.Capcity = capacity;
 
@@ -157,15 +170,16 @@ namespace H1_fisk_opgave
 
         private static void AddFish()
         {
-            Console.WriteLine("Fish name: ");
+            Fisk fish = new Fisk();
+            Console.Write("\nFish name: ");
             fish.Name = Console.ReadLine();
-            Console.WriteLine("Aquarium name: ");
+            Console.Write("\nAquarium name: ");
             fish.Aquarium = Console.ReadLine();
-            Console.WriteLine("Fish Size: ");
+            Console.Write("\nFish Size: ");
             fish.Size = Console.ReadLine();
-            Console.WriteLine("Does it eat Meat: ");
+            Console.Write("\nDoes it eat Meat: ");
             fish.IsCarnivore = True_or_False_Checker();
-            Console.WriteLine("Does it Require Salt Water: ");
+            Console.Write("\nDoes it Require Salt Water: ");
             fish.RequiresSaltWater = True_or_False_Checker();
             fishList.Add(fish);
 
