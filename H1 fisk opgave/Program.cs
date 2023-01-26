@@ -7,6 +7,7 @@ namespace H1_fisk_opgave
         static List<Fisk> fishList = new List<Fisk>();
         static List<Aquarium> aquariaList = new List<Aquarium>();
         static Fisk fish = new Fisk();
+        static Aquarium aquarium = new Aquarium();
         static void Main(string[] args)
         {
             // Menu:
@@ -19,16 +20,18 @@ namespace H1_fisk_opgave
             // Delete fish
             // Delete aquarium - Also delete fish in deleted aquarium
 
-            for (int i = 0; i < 3; i++)
-            {
-                fish.Name = "Name";
-                fish.FishTank = i.ToString();
-                fish.Size = "medium";
-                fish.IsCarnivore = false;
-                fish.RequiresSaltWater = true;
 
-                fishList.Add(fish);
-            }
+            // Dummy code for testing fish
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    fish.Name = "Name";
+            //    fish.FishTank = i.ToString();
+            //    fish.Size = "medium";
+            //    fish.IsCarnivore = false;
+            //    fish.RequiresSaltWater = true;
+
+            //    fishList.Add(fish);
+            //}
 
             while (true)
             {
@@ -58,13 +61,13 @@ namespace H1_fisk_opgave
                         RemoveFish();
                         break;
                     case '8':
-                        RemoteAquarium();
+                        RemoveAquarium();
                         break;
                 }
             }
         }
 
-        private static void RemoteAquarium()
+        private static void RemoveAquarium()
         {
             throw new NotImplementedException();
         }
@@ -82,12 +85,22 @@ namespace H1_fisk_opgave
 
         private static void ViewAquarium()
         {
-            throw new NotImplementedException();
+            ListAquarium();
+            int input = SelectIndex();
+            Console.WriteLine($"Aquarium {aquariaList[input].Name} \nSize: {aquariaList[input].Size} \nCapacity: {aquariaList[input].Capcity}");
         }
 
         private static void ListAquarium()
         {
-            throw new NotImplementedException();
+            if (aquariaList.Count > 0)
+            {
+                Console.WriteLine("\n");
+                for (int i = 0; i < aquariaList.Count; i++)
+                {
+                    Console.WriteLine($"[{i}] {aquariaList[i].Name}");
+                }
+            }
+            else Console.WriteLine("No aquarias available");
         }
 
         private static void ViewFish()
@@ -95,7 +108,7 @@ namespace H1_fisk_opgave
 
             ListFish();
             int input = SelectIndex();
-            Console.WriteLine($"Fish Name: {fishList[input].Name} \nFish Tank: {fishList[input].FishTank} \nFish Size: {fishList[input].Size} \nEats Meat: {fishList[input].IsCarnivore} \nRequires Salt Water: {fishList[input].RequiresSaltWater}");
+            Console.WriteLine($"Fish Name: {fishList[input].Name} \nAquarium: {fishList[input].Aquarium} \nFish Size: {fishList[input].Size} \nEats Meat: {fishList[input].IsCarnivore} \nRequires Salt Water: {fishList[input].RequiresSaltWater}");
 
         }
 
@@ -105,9 +118,9 @@ namespace H1_fisk_opgave
 
             do
             {
-                Console.WriteLine("Choose Fish from list:");
+                Console.WriteLine("Choose # from list:");
 
-            } while (!int.TryParse(Console.ReadLine(), out index) || index >= fishList.Count);
+            } while (!int.TryParse(Console.ReadLine(), out index) || index >= fishList.Count + 1);
 
             return index;
         }
@@ -127,15 +140,27 @@ namespace H1_fisk_opgave
 
         private static void AddAquarium()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Tank name: ");
+            aquarium.Name = Console.ReadLine();
+            Console.WriteLine("Tank size: ");
+            aquarium.Size = Console.ReadLine();
+
+            int capacity;
+            do
+            {
+                Console.WriteLine("Tank capacity: ");
+            } while (!int.TryParse(Console.ReadLine(), out capacity) || capacity < 0);
+            aquarium.Capcity = capacity;
+
+            aquariaList.Add(aquarium);
         }
 
         private static void AddFish()
         {
             Console.WriteLine("Fish name: ");
             fish.Name = Console.ReadLine();
-            Console.WriteLine("Fish Tank: ");
-            fish.FishTank = Console.ReadLine();
+            Console.WriteLine("Aquarium name: ");
+            fish.Aquarium = Console.ReadLine();
             Console.WriteLine("Fish Size: ");
             fish.Size = Console.ReadLine();
             Console.WriteLine("Does it eat Meat: ");

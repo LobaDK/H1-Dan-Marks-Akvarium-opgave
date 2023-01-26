@@ -9,7 +9,7 @@ namespace H1_fisk_opgave
     internal class Fisk
     {
         public string? Name { get; set; }
-        public string? FishTank { get; set; }
+        public string? Aquarium { get; set; }
         public string? Size { get; set; }
         public bool IsCarnivore { get; set; }
         public bool RequiresSaltWater { get; set; }

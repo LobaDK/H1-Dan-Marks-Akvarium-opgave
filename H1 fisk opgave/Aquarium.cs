@@ -11,6 +11,5 @@ namespace H1_fisk_opgave
         public string? Name { get; set; }
         public string? Size { get; set; }
         public int Capcity { get; set; }
-        public int Stored { get; set; }
     }
 }
