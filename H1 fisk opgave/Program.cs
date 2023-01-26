@@ -71,7 +71,13 @@ namespace H1_fisk_opgave
 
         private static void RemoveFish()
         {
-            throw new NotImplementedException();
+
+            Console.WriteLine("Delete");
+            ListFish();
+            Console.Write("Enter task number to delete: ");
+            fishList.RemoveAt(SelectIndex());
+            Console.WriteLine("Task deleted!");
+
         }
 
         private static void ViewAquarium()
@@ -86,7 +92,24 @@ namespace H1_fisk_opgave
 
         private static void ViewFish()
         {
+
             ListFish();
+            int input = SelectIndex();
+            Console.WriteLine($"Fish Name: {fishList[input].Name} \nFish Tank: {fishList[input].FishTank} \nFish Size: {fishList[input].Size} \nEats Meat: {fishList[input].IsCarnivore} \nRequires Salt Water: {fishList[input].RequiresSaltWater}");
+
+        }
+
+        private static int SelectIndex()
+        {
+            int index;
+
+            do
+            {
+                Console.WriteLine("Choose Fish from list:");
+
+            } while (!int.TryParse(Console.ReadLine(), out index) || index >= fishList.Count);
+
+            return index;
         }
 
         private static void ListFish()
@@ -109,10 +132,37 @@ namespace H1_fisk_opgave
 
         private static void AddFish()
         {
-            Fisk fish = new Fisk();
-
             Console.WriteLine("Fish name: ");
             fish.Name = Console.ReadLine();
+            Console.WriteLine("Fish Tank: ");
+            fish.FishTank = Console.ReadLine();
+            Console.WriteLine("Fish Size: ");
+            fish.Size = Console.ReadLine();
+            Console.WriteLine("Does it eat Meat: ");
+            fish.IsCarnivore = True_or_False_Checker();
+            Console.WriteLine("Does it Require Salt Water: ");
+            fish.RequiresSaltWater = True_or_False_Checker();
+            fishList.Add(fish);
+
+        }
+
+        private static bool True_or_False_Checker()
+        {
+            string input;
+            do
+            {
+                input = Console.ReadLine();
+
+            } while (input == null || input != "y" && input != "n");
+
+            if (input == "y")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
